@@ -25,9 +25,8 @@
     color: var(--fg);
     background: var(--bg);
     line-height: 1.65;
-    overflow: hidden;
-    height: 100vh;
   }
+  body.locked { overflow: hidden; height: 100vh; position: fixed; width: 100%; }
 
   /* ── ENVELOPE SCREEN ── */
   #envelope-screen {
@@ -108,17 +107,14 @@
   /* ── LETTER SCREEN ── */
   #letter-screen {
     position: fixed; inset: 0;
-    display: flex; align-items: center; justify-content: center;
+    z-index: 90;
     background: rgba(0,0,0,.85);
     backdrop-filter: blur(8px);
-    z-index: 90;
-    opacity: 0; pointer-events: none;
-    transition: opacity .5s ease;
     overflow-y: auto;
     -webkit-overflow-scrolling: touch;
-    padding: 1rem;
+    display: none;
   }
-  #letter-screen.visible { opacity: 1; pointer-events: auto; }
+  #letter-screen.visible { display: flex; align-items: flex-start; justify-content: center; }
 
   .letter {
     width: 560px; max-width: 92vw;
@@ -131,11 +127,9 @@
     line-height: 1.85;
     font-size: .95rem;
     position: relative;
-    transform: translateY(40px) scale(.95);
-    transition: transform .5s ease;
-    margin: auto;
+    margin: 2rem auto;
+    flex-shrink: 0;
   }
-  #letter-screen.visible .letter { transform: translateY(0) scale(1); }
 
   .letter::before {
     content: '';
@@ -181,14 +175,10 @@
 
   /* ── DOCUMENT ── */
   #document {
-    opacity: 0; pointer-events: none;
-    transition: opacity .6s ease;
-    overflow-y: auto;
-    height: 100vh;
+    display: none;
     padding: 2rem 1.5rem 4rem;
   }
-  #document.visible { opacity: 1; pointer-events: auto; }
-  body.doc-active { overflow: auto; }
+  #document.visible { display: block; }
 
   .doc-inner {
     max-width: 980px;
@@ -245,7 +235,7 @@
   }
 </style>
 </head>
-<body>
+<body class="locked">
 
 <!-- ════════════════ ENVELOPE ════════════════ -->
 <div id="envelope-screen">
@@ -691,28 +681,23 @@
 
 <script>
 function openEnvelope() {
-  const env = document.getElementById('envelope-screen');
-  const letter = document.getElementById('letter-screen');
-  env.classList.add('hidden');
-  setTimeout(() => {
+  var env = document.getElementById('envelope-screen');
+  var letter = document.getElementById('letter-screen');
+  env.style.opacity = '0';
+  setTimeout(function() {
     env.style.display = 'none';
     letter.classList.add('visible');
   }, 600);
 }
 
 function showDocument() {
-  const letter = document.getElementById('letter-screen');
-  const doc = document.getElementById('document');
+  var letter = document.getElementById('letter-screen');
+  var doc = document.getElementById('document');
+  letter.style.display = 'none';
   letter.classList.remove('visible');
-  setTimeout(() => {
-    letter.style.display = 'none';
-    doc.classList.add('visible');
-    document.body.style.overflow = 'auto';
-    document.body.style.height = 'auto';
-    document.documentElement.style.overflow = 'auto';
-    document.documentElement.style.height = 'auto';
-    window.scrollTo(0, 0);
-  }, 500);
+  doc.classList.add('visible');
+  document.body.classList.remove('locked');
+  window.scrollTo(0, 0);
 }
 </script>
 
