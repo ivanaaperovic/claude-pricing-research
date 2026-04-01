@@ -217,10 +217,27 @@
   blockquote { border-left: 4px solid var(--accent); padding: .8rem 1rem; margin: 1rem 0; background: var(--accent-dim); border-radius: 0 6px 6px 0; font-style: italic; }
   @media (max-width: 640px) {
     #document { padding: 1rem; }
-    table { font-size: .8rem; }
-    th, td { padding: .35rem .4rem; }
-    .letter { padding: 1.5rem; }
-    .envelope-body { width: 280px; height: 180px; }
+    table { font-size: .75rem; }
+    th, td { padding: .3rem .35rem; }
+    .envelope-body { width: 260px; height: 170px; }
+    .seal { width: 44px; height: 44px; }
+    .seal::after { font-size: 18px; }
+    .flap { height: 90px; }
+    .envelope-hint { font-size: .8rem; margin-top: 20px; }
+    .letter {
+      padding: 1.2rem 1rem 1rem;
+      font-size: .85rem;
+      max-width: 95vw;
+      line-height: 1.7;
+    }
+    .letter h2 { font-size: 1.05rem; margin-bottom: .8rem; }
+    .letter p { margin-bottom: .7rem; }
+    .letter .date { font-size: .75rem; }
+    .letter .signature { margin-top: 1rem; }
+    .btn-next { padding: .6rem 1.8rem; font-size: .85rem; margin-top: 1rem; }
+    h1 { font-size: 1.4rem; }
+    h2 { font-size: 1.2rem; }
+    h3 { font-size: 1.05rem; }
   }
 </style>
 </head>
