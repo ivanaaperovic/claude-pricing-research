@@ -114,6 +114,9 @@
     z-index: 90;
     opacity: 0; pointer-events: none;
     transition: opacity .5s ease;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem;
   }
   #letter-screen.visible { opacity: 1; pointer-events: auto; }
 
@@ -130,6 +133,7 @@
     position: relative;
     transform: translateY(40px) scale(.95);
     transition: transform .5s ease;
+    margin: auto;
   }
   #letter-screen.visible .letter { transform: translateY(0) scale(1); }
 
@@ -703,8 +707,11 @@ function showDocument() {
   setTimeout(() => {
     letter.style.display = 'none';
     doc.classList.add('visible');
-    document.body.classList.add('doc-active');
     document.body.style.overflow = 'auto';
+    document.body.style.height = 'auto';
+    document.documentElement.style.overflow = 'auto';
+    document.documentElement.style.height = 'auto';
+    window.scrollTo(0, 0);
   }, 500);
 }
 </script>
